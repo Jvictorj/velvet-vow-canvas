@@ -26,7 +26,8 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -63,6 +64,16 @@ export default {
 					ring: 'hsl(var(--sidebar-ring))'
 				}
 			},
+			backgroundImage: {
+				'gradient-romantic': 'var(--gradient-romantic)',
+				'gradient-romantic-light': 'var(--gradient-romantic-light)',
+				'gradient-overlay': 'var(--gradient-overlay)',
+				'gradient-card': 'var(--gradient-card)'
+			},
+			fontFamily: {
+				'dancing': ['Dancing Script', 'cursive'],
+				'inter': ['Inter', 'sans-serif']
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
@@ -84,11 +95,48 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'heartbeat': {
+					'0%, 100%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(1.1)' }
+				},
+				'sparkle': {
+					'0%, 100%': { opacity: '0.7', transform: 'scale(1)' },
+					'50%': { opacity: '1', transform: 'scale(1.2)' }
+				},
+				'fade-in-up': {
+					'from': { 
+						opacity: '0',
+						transform: 'translateY(30px)'
+					},
+					'to': { 
+						opacity: '1',
+						transform: 'translateY(0)'
+					}
+				},
+				'scale-in': {
+					'from': { 
+						opacity: '0',
+						transform: 'scale(0.9)'
+					},
+					'to': { 
+						opacity: '1',
+						transform: 'scale(1)'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'heartbeat': 'heartbeat 1.5s ease-in-out infinite',
+				'sparkle': 'sparkle 2s ease-in-out infinite',
+				'fade-in-up': 'fade-in-up 0.6s ease-out',
+				'scale-in': 'scale-in 0.4s ease-out'
 			}
 		}
 	},

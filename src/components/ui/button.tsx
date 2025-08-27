@@ -18,6 +18,9 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        romantic: "bg-gradient-to-r from-primary to-primary-glow text-primary-foreground px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-romantic",
+        "romantic-secondary": "bg-gradient-to-r from-secondary to-accent text-secondary-foreground px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl shadow-romantic",
+        "romantic-danger": "bg-gradient-to-r from-destructive to-red-400 text-destructive-foreground px-8 py-3 rounded-2xl font-semibold shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
       },
       size: {
         default: "h-10 px-4 py-2",
