@@ -247,10 +247,11 @@ body {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: -1;
-    background: radial-gradient(circle at 20% 80%, rgba(255, 107, 157, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(255, 182, 193, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 40%, rgba(255, 192, 203, 0.05) 0%, transparent 50%);
+    z-index: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255, 107, 157, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(255, 182, 193, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 192, 203, 0.1) 0%, transparent 50%);
   }
 
   .floating-hearts {
@@ -262,44 +263,39 @@ body {
 
   .floating-hearts .heart {
     position: absolute;
-    font-size: 20px;
-    opacity: 0.6;
-    animation: float-heart 15s infinite linear;
+    font-size: 24px;
+    opacity: 0.7;
+    animation: floatUp 15s infinite linear;
   }
 
   .floating-hearts .heart:nth-child(1) {
     left: 10%;
     animation-delay: 0s;
     animation-duration: 12s;
-    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(2) {
     left: 30%;
     animation-delay: 2s;
     animation-duration: 18s;
-    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(3) {
     left: 50%;
     animation-delay: 4s;
     animation-duration: 15s;
-    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(4) {
     left: 70%;
     animation-delay: 6s;
     animation-duration: 20s;
-    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(5) {
     left: 90%;
     animation-delay: 8s;
     animation-duration: 14s;
-    animation-name: float-heart;
   }
 
   /* Efeito especial para beleza máxima */
@@ -354,16 +350,16 @@ body {
   }
 }
 
-@keyframes float-heart {
+@keyframes floatUp {
   0% {
     transform: translateY(100vh) rotate(0deg);
     opacity: 0;
   }
   10% {
-    opacity: 0.6;
+    opacity: 0.7;
   }
   90% {
-    opacity: 0.6;
+    opacity: 0.7;
   }
   100% {
     transform: translateY(-100px) rotate(360deg);
