@@ -8,6 +8,7 @@ const RomanticGift = () => {
   const [hoverCount, setHoverCount] = useState(0);
   const [alreadyChangedLastName, setAlreadyChangedLastName] = useState(false);
   const [alreadyChangedPresentConfirm, setAlreadyChangedPresentConfirm] = useState(false);
+  const [beautyErrorProcessed, setBeautyErrorProcessed] = useState(false);
   const [showInitialModal, setShowInitialModal] = useState(true);
   const [showNameConfirm1, setShowNameConfirm1] = useState(false);
   const [showNameConfirm2, setShowNameConfirm2] = useState(false);
@@ -151,7 +152,10 @@ const RomanticGift = () => {
     }
 
     if (parseInt(beautyLevel) < 99999999) {
-      return setShowBeautyError1(true);
+      if (!beautyErrorProcessed) {
+        setBeautyErrorProcessed(true);
+        return setShowBeautyError1(true);
+      }
     }
 
     setTimeout(() => setCurrentStep(2), 1000);
@@ -205,6 +209,17 @@ const RomanticGift = () => {
 
   return (
     <div className="min-h-screen bg-gradient-romantic-light flex items-center justify-center p-4">
+      {/* Background romântico */}
+      <div className="romantic-bg">
+        <div className="floating-hearts">
+          <span className="heart">💖</span>
+          <span className="heart">💕</span>
+          <span className="heart">💗</span>
+          <span className="heart">💝</span>
+          <span className="heart">💘</span>
+        </div>
+      </div>
+
       {/* Overlay */}
       {(showInitialModal || showNameConfirm1 || showNameConfirm2 || showGenericError || showBeautyError1 || showBeautyError2) && (
         <div className="modal-overlay animate-fade-in-up" />
@@ -351,7 +366,11 @@ const RomanticGift = () => {
                     ✨ Nivel de Beleza:
                   </label>
                   <Input
-                    className="input-romantic text-center"
+                    className={`input-romantic text-center ${
+                      beautyLevel === "9999999999999999999999999999999999" 
+                        ? "special-beauty-input" 
+                        : ""
+                    }`}
                     type="number"
                     placeholder="0-10"
                     min="0"
@@ -359,6 +378,11 @@ const RomanticGift = () => {
                     value={beautyLevel}
                     onChange={(e) => setBeautyLevel(limitInput(e.target.value))}
                   />
+                  {beautyLevel === "9999999999999999999999999999999999" && (
+                    <div className="beauty-crown text-center animate-heartbeat">
+                      ✨👑✨ PERFEIÇÃO ABSOLUTA ✨👑✨
+                    </div>
+                  )}
                 </div>
                 <div className="text-center pt-4">
                   <Button variant="romantic" onClick={validateStep1}>
