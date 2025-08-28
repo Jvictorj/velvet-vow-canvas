@@ -271,30 +271,35 @@ body {
     left: 10%;
     animation-delay: 0s;
     animation-duration: 12s;
+    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(2) {
     left: 30%;
     animation-delay: 2s;
     animation-duration: 18s;
+    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(3) {
     left: 50%;
     animation-delay: 4s;
     animation-duration: 15s;
+    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(4) {
     left: 70%;
     animation-delay: 6s;
     animation-duration: 20s;
+    animation-name: float-heart;
   }
 
   .floating-hearts .heart:nth-child(5) {
     left: 90%;
     animation-delay: 8s;
     animation-duration: 14s;
+    animation-name: float-heart;
   }
 
   /* Efeito especial para beleza máxima */
