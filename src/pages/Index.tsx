@@ -3,6 +3,86 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+// ---------------------
+// Subcomponente PhotoCard
+// ---------------------
+interface PhotoCardProps {
+  emojiA?: string;
+  emojiB?: string;
+  title: string;
+  text: string;
+  images: string[];
+  delay?: number;
+}
+
+const PhotoCard = ({
+  emojiA,
+  emojiB,
+  title,
+  text,
+  images,
+  delay = 0,
+}: PhotoCardProps) => {
+  const [currentImage, setCurrentImage] = useState(0);
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (images.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentImage((prev) => (prev + 1) % images.length);
+      }, 3000); // troca a cada 3s
+      return () => clearInterval(interval);
+    }
+  }, [images.length]);
+
+  const handleImageError = () => {
+    setFailedImages(prev => new Set([...prev, currentImage]));
+  };
+
+  const currentImageFailed = failedImages.has(currentImage);
+
+  return (
+    <div
+      className="photo-card-romantic animate-fade-in-up relative"
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {/* Emojis */}
+      {emojiA && (
+        <div className="absolute -top-3 -right-3 text-2xl animate-heartbeat">
+          {emojiA}
+        </div>
+      )}
+      {emojiB && (
+        <div className="absolute -top-3 -left-3 text-2xl animate-heartbeat">
+          {emojiB}
+        </div>
+      )}
+
+      {/* Imagem carrossel */}
+      <div className="h-40 w-full rounded-2xl mb-4 shadow-romantic bg-gradient-to-br from-primary/20 to-accent/30 flex items-center justify-center overflow-hidden">
+        {!currentImageFailed ? (
+          <img
+            src={images[currentImage]}
+            alt={title}
+            className="w-full h-full object-cover transition-opacity duration-700"
+            onError={handleImageError}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-muted-foreground">
+            <span className="text-4xl">📷</span>
+            <span className="ml-2 text-sm font-medium">{title}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Texto */}
+      <p className="font-dancing text-lg text-romantic font-bold leading-relaxed">
+        {text}
+      </p>
+    </div>
+  );
+};
+
 const RomanticGift = () => {
   // Estados da aplicação
   const [hoverCount, setHoverCount] = useState(0);
@@ -15,6 +95,7 @@ const RomanticGift = () => {
   const [showWizard, setShowWizard] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
   const [showFinal, setShowFinal] = useState(false);
+  const [showExtraFinal, setShowExtraFinal] = useState(false);
   const [showGenericError, setShowGenericError] = useState(false);
   const [showBeautyError1, setShowBeautyError1] = useState(false);
   const [showBeautyError2, setShowBeautyError2] = useState(false);
@@ -461,46 +542,138 @@ const RomanticGift = () => {
         </div>
       )}
 
-      {/* Seção Final */}
+          {/* Seção Final */}
       {showFinal && (
         <div className="w-full max-w-6xl mx-auto text-center animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-dancing text-romantic mb-12 heart-beat">
             💖 Te amo Vitoria Vicente 💖
           </h1>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
             {[
-              { emoji: "💕", title: "Nosso primeiro encontro", text: "Eu penso em Você o dia todo ♥" },
-              { emoji: "❤️", title: "Momentos especiais", text: "Vitoria, Você me inspira a ser melhor ♥" },
-              { emoji: "💖", title: "Nossos sorrisos", text: "Nosso amor é eterno" },
-              { emoji: "💝", title: "Juntos", text: "Te amo Vitoria mais que tudo" },
-              { emoji: "💗", title: "Aventuras", text: "Minha pessoa favorita ♥" },
-              { emoji: "💘", title: "Amor verdadeiro", text: "Cada dia com Você Vitoria é uma benção" }
+              {
+                emojiA: "💕",
+                title: "Nosso primeiro encontro",
+                text: "Eu penso em Você o dia todo ♥",
+                images: [
+                  "/images/Abraço no Espelho.jpg",
+                  "/images/Balanço com Luz Verde.jpg",
+                  "/images/Barraca do Beijo.jpg",
+                ],
+              },
+              {
+                emojiB: "❤️",
+                title: "Momentos especiais",
+                text: "Vitoria, Você me inspira a ser melhor",
+                images: [
+                  "/images/Beijo na Bochecha Fantasiados.jpg",
+                  "/images/Brindando com Bebidas.jpg",
+                  "/images/Festa Fantasia.jpg",
+                ],
+              },
+              {
+                emojiA: "💖",
+                title: "Nossos sorrisos",
+                text: "Nosso amor é eterno ♥",
+                images: [
+                  "/images/Foto de Corpo em Pé na Festa.jpg",
+                  "/images/Foto de Corpo em Pé na Festa-2.jpg",
+                  "/images/IMG_20211010_011913_081.jpg",
+                ],
+              },
+              {
+                emojiB: "💝",
+                title: "Juntos",
+                text: "Te amo mais que tudo",
+                images: [
+                  "/images/IMG_20221218_195209_936.jpg",
+                  "/images/IMG_20240428_203334_814.jpg",
+                  "/images/IMG_20240428_203453_893.jpg",
+                ],
+              },
+              {
+                emojiA: "💗",
+                title: "Aventuras",
+                text: "Minha pessoa favorita ♥",
+                images: [
+                  "/images/IMG_20250302_022610.jpg",
+                  "/images/IMG_20250303_022127.jpg",
+                  "/images/IMG-20210426-WA0021.jpg",
+                ],
+              },
+              {
+                emojiB: "💘",
+                title: "Amor verdadeiro",
+                text: "Cada dia com Você é uma benção",
+                images: [
+                  "/images/Na Festa com Bolo.jpg",
+                  "/images/Screenshot_2025-04-14-23-28-10-836_com.whatsapp.jpg",
+                  "/images/Selfie com Camisa Branca.jpg",
+                ],
+              },
             ].map((card, index) => (
-              <div
+              <PhotoCard
                 key={index}
-                className="photo-card-romantic animate-fade-in-up"
-                style={{ animationDelay: `${index * 200}ms` }}
-              >
-                <div className="absolute -top-3 -right-3 text-2xl animate-heartbeat">
-                  {card.emoji}
-                </div>
-                <div className="h-40 bg-gradient-to-br from-primary/20 to-accent/30 rounded-2xl flex items-center justify-center mb-4 shadow-romantic">
-                  <span className="text-4xl">📷</span>
-                  <span className="ml-2 text-sm font-medium text-muted-foreground">
-                    {card.title}
-                  </span>
-                </div>
-                <p className="font-dancing text-lg text-romantic font-bold leading-relaxed">
-                  {card.text}
-                </p>
-              </div>
+                emojiA={card.emojiA}
+                emojiB={card.emojiB}
+                title={card.title}
+                text={card.text}
+                images={card.images}
+                delay={index * 200}
+              />
             ))}
           </div>
-          
-          <Button variant="romantic" className="text-lg px-12 py-4" onClick={resetToStart}>
-            🎊 Finalizar
+
+          {/* Botão que ativa a seção extra */}
+          <Button 
+            variant="romantic" 
+            className="text-lg px-12 py-4 mb-8" 
+            onClick={() => setShowExtraFinal(true)}
+          >
+            🎊 Continuar
           </Button>
+
+          {/* Seção final extra só aparece se showExtraFinal = true */}
+          {showExtraFinal && (
+            <div className="final-section animate-fade-in-up mt-12">
+              <div className="final-card max-w-4xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-8">
+                  <div className="final-text-block text-left">
+                    <p className="text-4xl mb-4">❤️</p>
+                    <p className="text-lg font-dancing text-romantic leading-relaxed">
+                      Eu nem imaginava o quão importante você se tornaria pra mim, e em pouco tempo percebi que você é simplesmente maravilhosa e é exatamente a pessoa que eu esperava conhecer, obrigado por ser você!!!
+                    </p>
+                    <p className="text-4xl mt-4">❤️</p>
+                  </div>
+
+                  <div className="final-image-block">
+                    <div className="w-full h-80 bg-gradient-to-br from-primary/20 to-accent/30 rounded-2xl flex items-center justify-center shadow-romantic">
+                      <div className="text-center text-muted-foreground">
+                        <span className="text-6xl">📷</span>
+                        <p className="mt-2 font-medium">Nossa Foto Especial</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="final-text-block text-center">
+                  <p className="text-4xl mb-4">💌</p>
+                  <p className="text-lg font-dancing text-romantic leading-relaxed mb-4">
+                    Parabéns por nossos primeiros 6 anos! É só o começo da nossa vida toda juntos. TE AMO MUITO MUITO!!!
+                  </p>
+                  <p className="text-4xl">🥰</p>
+                </div>
+              </div>
+
+              <Button 
+                variant="romantic" 
+                className="text-lg px-12 py-4 mt-8" 
+                onClick={resetToStart}
+              >
+                Recomeçar
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
